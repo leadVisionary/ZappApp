@@ -39,7 +39,7 @@ var miniLogoWidth = 30,
     $animSpeed = 1000,
 
     /* Twitter Feed  */
-    $username = "envatowebdesign",
+    $username = "#",
     $join_text = "auto",
     $avatar_size = 38,
     $count = 3,
