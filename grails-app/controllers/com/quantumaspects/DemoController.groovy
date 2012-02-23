@@ -4,6 +4,10 @@ import grails.converters.*
 class DemoController {
     def datastoreService
     
+    def index(){
+        
+    }
+    
     def broadcast(){
         def cards = ZapCard.list()
         if(!cards){
