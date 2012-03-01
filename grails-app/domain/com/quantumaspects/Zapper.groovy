@@ -1,6 +1,6 @@
 package com.quantumaspects
 
-class Zapper {
+class Zapper extends ParseEntity {
     String email
     
     static hasMany = [ cards: ZapCard ]

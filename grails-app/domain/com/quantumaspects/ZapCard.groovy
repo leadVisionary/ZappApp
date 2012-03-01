@@ -1,8 +1,10 @@
 package com.quantumaspects
 
-class ZapCard {
+class ZapCard extends ParseEntity {
     String name
     String phoneNumber
+    
+    static belongsTo = [ owner : Zapper ]
     
     static constraints = {
         name blank:false, unique:true

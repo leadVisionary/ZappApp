@@ -12,6 +12,10 @@
       <g:message code="live.demo.instructions" />
     </p>
     <g:form action="broadcast">
+      <label for="name">
+        <g:message code="live.demo.name.label" default="Name" />
+      </label>
+      <g:textField name="name" />
       <label for="email">
         <g:message code="live.demo.email.label" default="Email address" />
       </label>
