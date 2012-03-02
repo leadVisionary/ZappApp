@@ -1,9 +1,9 @@
 package com.quantumaspects
 
-abstract class ParseEntity {
-    String parseObjectId
+abstract class ParseIdentity {
+    String objectId
     
     static constraints = {
-        parseObjectId blank : false, unique : true
+        objectId blank : false, unique : true
     }
 }

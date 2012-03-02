@@ -31,12 +31,12 @@ class DemoControllerTests {
     }
     
     private void setupMock(def configure){
-        def control = mockFor(DatastoreService)
+        def control = mockFor(ParseService)
         configure(control)
         control.demand.exchangeCards { Zapper o, String n, String pn ->
             return new ZapCard(name:n, phoneNumber:pn, owner:o, parseObjectId: "dummy")
         }
-        controller.datastoreService = control.createMock()
+        controller.parseService = control.createMock()
     }
     
     private void testLive(Zapper zapper, ZapCard newCard){

@@ -1,52 +1,53 @@
 package com.quantumaspects
 
-class ParseService  {
-    private ParseInterface parseConnector = new ParseInterface()
-    
-    public ParseService(ParseInterface connector){
-        parseConnector = connector
-    }
+class ParseService extends ParseInterface implements ZapAPI  {
+    def zapperService
+    def zapCardService
     
     public Zapper createUser(String email){
-        def zapper = createUserInParse(zapper) 
+        def zapper = this.createUserInParse(zapper) 
         if(zapper){
-            new Zapper(email:email, parseObjectId:zapper).save(flush:true)
+            zapperService.createUser(email, zapper)
         }
     }
     
-    private void createUserInParse(Zapper user){
-        parseConnector.createUser(user.email, "temp")
+    private String createUserInParse(Zapper user){
+        this.createUser(user.email, "temp")
     }
     
     public ZapCard createCard(Zapper owner, String name, String phoneNumber){
-        def card = new ZapCard(owner:demoZapper, 
-                               name: name,
-                               phoneNumber:phoneNumber).save(flush:true)
+        def card = this.createCardInParse(owner,card) 
         if(card){
-            createCardInParse(owner, card)
+            zapCardService.createCard(owner, card)
         }
         return card
     }
     
-    private void createCardInParse(Zapper owner, ZapCard card){
+    private String createCardInParse(Zapper owner, ZapCard card){
         def cardData = [ name: card.name, phoneNumber: card.phoneNumber, cardOwner : owner.parseObjectId ]
-        parseConnector.createObject("zapCards", cardData)
+        this.createObject("zapCards", cardData)
     }
     
-    public void exchange(Zapper sender, ZapCard card, Zapper recipient){
-        println "Got ${sender} ${card} ${recipient}"
+    public void exchangeCards(Zapper sender, ZapCard card, Zapper recipient){
         def exchangeData = [ user : sender.parseObjectId, 
                              cardRecipient : recipient.parseObjectId,
                              zapCard : card.parseObjectId]
-        parseConnector.createObject("exchangedCards", exchangeData)
-        parseConnector.pushNotification( exchangeData )
+        this.createObject("exchangedCards", exchangeData)
+        this.pushNotification( exchangeData )
     }
     
-    def retrieveCardsFromParse() {
-        this.retrieve("zapCards")
+    void collectRemoteData() {
+        retrieveUsersFromParse()
+        retrieveCardsFromParse()
     }
     
     def retrieveUsersFromParse(){
-        this.retrieve("User")
+        def result = this.retrieve("User")
+        zapperService.createUsersFromCollection(result)
+    }
+    
+    def retrieveCardsFromParse() {
+        def result = this.retrieve("zapCards")
+        zapCardService.createCardsFromCollection(result)
     }
 }

@@ -2,7 +2,7 @@ package com.quantumaspects
 import grails.converters.*
 
 class DemoController {
-    def datastoreService
+    def parseService
     
     def index(){
         
@@ -12,12 +12,13 @@ class DemoController {
         def data = populate(params.email, params.name, params.phoneNumber)
         def zapp = Zapper.findByEmail("zapp@zapapp.com")
         def zappCard = ZapCard.findByOwner(zapp)
-        datastoreService.exchangeCards(data.demoZapper, data.card, zapp)
+        parseService.exchangeCards(data.demoZapper, data.card, zapp)
         return [ card : zappCard ]
     }
     
     private def populate(String email, String name, String phoneNumber){
-        def parseData = [
+        def parseData = 
+        [
             card : ZapCard.findByPhoneNumber(phoneNumber),
             demoZapper : Zapper.findByEmail(email)
         ]
@@ -29,11 +30,11 @@ class DemoController {
     }
     
     private def populateFromRemote(String email, String name, String phoneNumber){
-        datastoreService.collectRemoteData()
+        parseService.collectRemoteData()
         def demoZapper = Zapper.findByEmail(email) ?:
-                         datastoreService.createUser(email)
+                         parseService.createUser(email)
         def card = ZapCard.findByPhoneNumber(phoneNumber) ?:
-                         datastoreService.createCard(demoZapper,name, phoneNumber)
+                         parseService.createCard(demoZapper,name, phoneNumber)
         return [ card : card , demoZapper : demoZapper ]
     }
 }

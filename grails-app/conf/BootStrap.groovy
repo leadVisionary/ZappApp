@@ -14,6 +14,7 @@ class BootStrap {
         def card = ZapCard.findByName("Zapp Appiganigan") ?:
                    new ZapCard( owner: zapp,
                                name:"Zapp Appiganigan", 
-                               phoneNumber:"999-999-9999").save(failOnError:true)
+                               phoneNumber:"999-999-9999",
+                               parseObjectId:"testParse").save(failOnError:true)
     }
 }

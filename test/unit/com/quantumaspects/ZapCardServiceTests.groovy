@@ -21,4 +21,21 @@ class ZapCardServiceTests {
         service.createCardsFromCollection(collection)
         assert ZapCard.list().size() == 2
     }
+    
+    void testCreateCardFromInvalidInput(){
+        def result = service.createCard(null, "blah", "blah")
+        assert !result
+    }
+    
+    void testCreateUserFromValidInput(){
+        def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save() 
+        def result = service.createCard(zapper, "blahma", "(480)593-2428" )
+        assert result.validate()
+    }
+    
+    void testCreateUserValidInputAndParseId(){
+        def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save()
+        def result = service.createCard(zapper, "blahma", "(480)593-2428", "testy")
+        assert result.validate()
+    }
 }

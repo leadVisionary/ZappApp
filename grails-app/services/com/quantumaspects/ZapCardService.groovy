@@ -18,4 +18,19 @@ class ZapCardService {
             }
         }
     }
+    
+    public ZapCard createCard(Zapper owner, String name, String phoneNumber){
+        createCard(owner, name, phoneNumber, "dummy")
+    }
+    
+    public ZapCard createCard(Zapper owner, 
+                              String name, 
+                              String phoneNumber, 
+                              String parseObjectId){
+        new ZapCard(
+                    owner:owner, 
+                    name: name,
+                    phoneNumber:phoneNumber,
+                    parseObjectId: parseObjectId).save(flush:true)
+    }
 }

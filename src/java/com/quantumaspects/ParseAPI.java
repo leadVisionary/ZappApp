@@ -11,5 +11,4 @@ public interface ParseAPI extends DatastoreAPI {
     public String createObject(String parseEntity, Map args);
     public String queryForObject(String parseEntity, Map constraints);
     public void pushNotification(String channel, Integer expiry, String type, Map data);
-    
 }

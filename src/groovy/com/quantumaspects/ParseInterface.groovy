@@ -5,8 +5,8 @@ import net.sf.json.JSONArray
 import net.sf.json.JSONSerializer
 
 
-class ParseInterface implements ParseAPI {
-    public Collection retrieve(String parseEntity){
+abstract class ParseInterface implements ParseAPI {
+    public Collection retrieveAll(String parseEntity){
         return retrieveFromParse(parseEntity)
     }
     
@@ -49,8 +49,16 @@ class ParseInterface implements ParseAPI {
                                  Map data)
     {
         def client = buildRequest()
-        def notificationBody = ["channel" : channel, "expiry" : expiry, "type" : type, "data" : data]
-        def response = client.get( path : url, body:data )
+        def notificationBody = [
+                                "channel" : channel, 
+                                "expiry" : expiry, 
+                                "type" : type, 
+                                "data" : data
+                               ]
+        def response = client.post( path : "push", body : notificationBody )
+        if(response.status != 201){
+            throw new Exception("Notification failed! Response was ${response.status} ${response.body}")
+        }
     }
     
     private def retrieveFromParse(String parseEntity) {
