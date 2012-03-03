@@ -6,8 +6,8 @@ class ZapCardService {
         result.each{
             def card = new ZapCard( name : it.name, 
                                     phoneNumber : it.phoneNumber, 
-                                    owner :  Zapper.findByParseObjectId(it.cardOwner.objectId),
-                                    parseObjectId : it.objectId
+                                    owner :  Zapper.findByObjectId(it.cardOwner.objectId),
+                                    objectId : it.objectId
                                   )
             if(card.validate()){
                 card.save(flush:true)
@@ -22,11 +22,11 @@ class ZapCardService {
     public ZapCard createCard(Zapper owner, 
                               String name, 
                               String phoneNumber, 
-                              String parseObjectId){
+                              String objectId){
         new ZapCard(
                     owner:owner, 
                     name: name,
                     phoneNumber:phoneNumber,
-                    parseObjectId: parseObjectId).save(flush:true)
+                    objectId: objectId).save(flush:true)
     }
 }

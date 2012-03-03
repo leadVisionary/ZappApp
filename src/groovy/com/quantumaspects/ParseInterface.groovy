@@ -85,5 +85,4 @@ abstract class ParseInterface implements ParseAPI {
     protected def createParseObjectLink(String objectId, String parseEntity){
         return [ "__type": "Pointer", "className" : parseEntity, "objectId" : objectId ]
     }
-    
 }

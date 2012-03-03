@@ -13,10 +13,10 @@ import org.junit.*
 class ZapCardServiceTests {
 
     void testCreateCardsFromCollection() {
-        def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save() 
+        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save() 
         def collection = [
-                            [name: "test1", phoneNumber: "555-333-2222", cardOwner:[objectId: zapper.parseObjectId], objectId:"loory"],
-                            [name: "test2", phoneNumber: "111-444-1234", cardOwner:[objectId: zapper.parseObjectId], objectId:"foory"],
+                            [name: "test1", phoneNumber: "555-333-2222", cardOwner:[objectId: zapper.objectId], objectId:"loory"],
+                            [name: "test2", phoneNumber: "111-444-1234", cardOwner:[objectId: zapper.objectId], objectId:"foory"],
                          ]
         service.createCardsFromCollection(collection)
         assert ZapCard.list().size() == 2
@@ -28,13 +28,13 @@ class ZapCardServiceTests {
     }
     
     void testCreateUserFromValidInput(){
-        def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save() 
+        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save() 
         def result = service.createCard(zapper, "blahma", "(480)593-2428" )
         assert result.validate()
     }
     
     void testCreateUserValidInputAndParseId(){
-        def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save()
+        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save()
         def result = service.createCard(zapper, "blahma", "(480)593-2428", "testy")
         assert result.validate()
     }

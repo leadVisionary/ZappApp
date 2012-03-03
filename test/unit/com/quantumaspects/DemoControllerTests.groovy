@@ -10,23 +10,21 @@ import org.junit.*
 
 class DemoControllerTests {
     void setUp(){
-        def zapp = Zapper.findByEmail("zapp@zapapp.com") ?:
-                   new Zapper(email:"zapp@zapapp.com",parseObjectId:"boobah").save()
-        def card = ZapCard.findByName("Zapp Appiganigan") ?:
-                   new ZapCard( owner: zapp,
+        def zapp = new Zapper(email:"zapp@zapapp.com",objectId:"boobah").save(flush:true)
+        def card = new ZapCard( owner: zapp,
                                name:"Zapp Appiganigan", 
                                phoneNumber:"999-999-9999",
-                               parseObjectId:"loory").save()
-        
+                               objectId:"loory").save(flush:true)
+        println "zapp ${zapp} card ${card}"
     }
     
-    private Zapper createZapper(){ new Zapper(email:"moo@you.com", parseObjectId:"112233") }
+    private Zapper createZapper(){ new Zapper(email:"moo@you.com", objectId:"112233") }
     private ZapCard createCard(Zapper zapper) {
         new ZapCard(
             name:"Visionary Software Solutions",
             phoneNumber: "(480)111-2222",
             owner:zapper,
-            parseObjectId:"FOOTCHIE"
+            objectId:"FOOTCHIE"
         )
     }
     
@@ -34,7 +32,7 @@ class DemoControllerTests {
         def control = mockFor(ParseService)
         configure(control)
         control.demand.exchangeCards { Zapper o, String n, String pn ->
-            return new ZapCard(name:n, phoneNumber:pn, owner:o, parseObjectId: "dummy")
+            
         }
         controller.parseService = control.createMock()
     }
@@ -51,9 +49,11 @@ class DemoControllerTests {
     void testLiveWhenCardAlreadyLocal(){
         setupMock({})
         def zapper = createZapper()
-        zapper.save()
+        zapper.save(flush:true)
         def card = createCard(zapper)
-        card.save()
+        card.save(flush:true)
+        //wat?
+        println "sending ${zapper} ${card}"
         testLive(zapper, card)
     }
     
@@ -62,9 +62,9 @@ class DemoControllerTests {
         def configure ={ it ->
             it.demand.collectRemoteData { ->
                 def pap = createZapper()
-                pap.save()
+                pap.save(flush:true)
                 def card = createCard(pap)
-                card.save()
+                card.save(flush:true)
             }
         }
         setupMock(configure)
@@ -77,7 +77,7 @@ class DemoControllerTests {
              
             it.demand.collectRemoteData{ ->
                 def card = createCard(zap)
-                card.save()
+                card.save(flush:true)
             }
             it.demand.createUser{ String email ->
                 zap.save(flush:true)
