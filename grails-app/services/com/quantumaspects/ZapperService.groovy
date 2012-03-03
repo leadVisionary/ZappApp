@@ -4,8 +4,8 @@ class ZapperService {
 
     def createUsersFromCollection(Collection result){
         result.each{
-            def zapper = new Zapper(  email : it.email, 
-                                    parseObjectId : it.objectId
+            def zapper = new Zapper(  email : it.email ?: "", 
+                                    parseObjectId : it.objectId ?: ""
                                   )
             if(zapper.validate()){
                 zapper.save(flush:true)

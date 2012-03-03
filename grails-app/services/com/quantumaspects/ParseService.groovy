@@ -5,35 +5,39 @@ class ParseService extends ParseInterface implements ZapAPI  {
     def zapCardService
     
     public Zapper createUser(String email){
-        def zapper = this.createUserInParse(zapper) 
+        def zapper = this.createUserInParse(email) 
         if(zapper){
-            zapperService.createUser(email, zapper)
+            zapper = zapperService.createUser(email, zapper)
         }
     }
     
-    private String createUserInParse(Zapper user){
-        this.createUser(user.email, "temp")
+    private String createUserInParse(String email){
+        this.createUser(email, "temp")
     }
     
     public ZapCard createCard(Zapper owner, String name, String phoneNumber){
-        def card = this.createCardInParse(owner,card) 
+        def card = this.createCardInParse(owner,name, phoneNumber) 
         if(card){
-            zapCardService.createCard(owner, card)
+            card = zapCardService.createCard(owner, name, phoneNumber)
         }
         return card
     }
     
-    private String createCardInParse(Zapper owner, ZapCard card){
-        def cardData = [ name: card.name, phoneNumber: card.phoneNumber, cardOwner : owner.parseObjectId ]
+    private String createCardInParse(Zapper owner, String name, String phoneNumber){
+        def cardData = [ 
+                         name: name,
+                         phoneNumber: phoneNumber, 
+                         cardOwner :  createParseUserLink(owner.parseObjectId)
+                       ]
         this.createObject("zapCards", cardData)
     }
     
     public void exchangeCards(Zapper sender, ZapCard card, Zapper recipient){
-        def exchangeData = [ user : sender.parseObjectId, 
-                             cardRecipient : recipient.parseObjectId,
-                             zapCard : card.parseObjectId]
-        this.createObject("exchangedCards", exchangeData)
-        this.pushNotification( exchangeData )
+        def exchangeData = [ user : createParseUserLink(sender.parseObjectId), 
+                             cardRecipient : createParseUserLink(recipient.parseObjectId),
+                             zapCard : createParseObjectLink(card.parseObjectId, "zapCards") ]
+        def result = this.createObject("exchangedCards", exchangeData)
+        this.pushNotification( recipient.email, exchangeData )
     }
     
     void collectRemoteData() {
@@ -42,12 +46,12 @@ class ParseService extends ParseInterface implements ZapAPI  {
     }
     
     def retrieveUsersFromParse(){
-        def result = this.retrieve("User")
+        def result = this.retrieveAll("User")
         zapperService.createUsersFromCollection(result)
     }
     
     def retrieveCardsFromParse() {
-        def result = this.retrieve("zapCards")
+        def result = this.retrieveAll("zapCards")
         zapCardService.createCardsFromCollection(result)
     }
 }

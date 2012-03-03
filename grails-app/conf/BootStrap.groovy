@@ -10,11 +10,11 @@ class BootStrap {
     
     private void createZapp(){
         def zapp = Zapper.findByEmail("zapp@zapapp.com") ?:
-                   new Zapper(email:"zapp@zapapp.com",parseObjectId:"boobah").save(failOnError:true)
+                   new Zapper(email:"zapp@zapapp.com",parseObjectId:"M2VnuACvfh").save(failOnError:true)
         def card = ZapCard.findByName("Zapp Appiganigan") ?:
                    new ZapCard( owner: zapp,
                                name:"Zapp Appiganigan", 
                                phoneNumber:"999-999-9999",
-                               parseObjectId:"testParse").save(failOnError:true)
+                               parseObjectId:"ny88sqNv3Z").save(failOnError:true)
     }
 }

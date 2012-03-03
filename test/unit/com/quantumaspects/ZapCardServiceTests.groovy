@@ -15,8 +15,8 @@ class ZapCardServiceTests {
     void testCreateCardsFromCollection() {
         def zapper = new Zapper(email:"test@you.com", parseObjectId:"112233").save() 
         def collection = [
-                            ["name": "test1", phoneNumber: "555-333-2222", owner:zapper, objectId:"loory"],
-                            ["name": "test2", phoneNumber: "111-444-1234", owner:zapper, objectId:"foory"],
+                            [name: "test1", phoneNumber: "555-333-2222", cardOwner:[objectId: zapper.parseObjectId], objectId:"loory"],
+                            [name: "test2", phoneNumber: "111-444-1234", cardOwner:[objectId: zapper.parseObjectId], objectId:"foory"],
                          ]
         service.createCardsFromCollection(collection)
         assert ZapCard.list().size() == 2
