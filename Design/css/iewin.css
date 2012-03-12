@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+#spanel li
+{
+float:left;
+margin-right:3px;}
+
+.form LABEL.nec
+{margin:0;}

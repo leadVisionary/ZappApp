@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+
+#iphone
+{
+position:absolute;
+left:152px;
+z-index:0;}
+
+#header_content {
+margin-top:200px;
+position:absolute;
+top:0px;
+left:600px}
+
+#fingers
+{
+top:390px;}
+
+.slidemenu
+{
+margin-top:00px;}
+
+.sl2, .sl1, .sl3, .sl4
+{
+position:relative;
+top:10px;
+left:15px;
+z-index:
+}
+
+#spanelbg
+{
+z-index:1;
+float:left;
+top:-36px;
+}
