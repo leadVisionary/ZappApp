@@ -6,6 +6,7 @@
     <title>
       <g:message code="live.demo.title" default="Welcome to the Zapp App Live Demo!"/>
     </title>
+    <r:require modules="jquery-ui" />
   </head>
   <body>
     <header class="leftColumn">
@@ -18,7 +19,10 @@
     <div class="rightColumn">
       <g:render template="/demo/input" />
     </div>
-    <g:render template="/demo/cardList" model="['name':'Zapp', 'cards':zappCards]" />
-    <div id="userWallet" />
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="http://leandrovieira.com/projects/jquery/lightbox/css/jquery.lightbox-0.5.css" />
+    <script type="text/javascript" 
+    src="http://leandrovieira.com/projects/jquery/lightbox/js/jquery.lightbox-0.5.pack.js"></script>
 </body>
 </html>

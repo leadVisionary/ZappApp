@@ -1,4 +1,4 @@
-<g:form action="broadcast">
+<g:form action="live">
   <label for="name">
     <g:message code="live.demo.name.label" default="Name" />
     <g:textField name="name" />
@@ -11,5 +11,18 @@
     <g:message code="live.demo.phoneNumber.label" default="Phone Number" />
     <input type="tel" name="phoneNumber" />
   </label>
-  <g:submitButton name="Go" value="Exchange Cards!" />
+  <g:submitToRemote update="zapCard" 
+                    url="[action:'live', controller:'demo']"
+                    value="Exchange Cards!"
+                    onComplete="showZap()"/>
 </g:form>
+<div id="zapCard" />
+<r:script>
+    jQuery(document).ready(function(){ 
+      showZap = function(){
+       jQuery("#zapCard").lightBox();
+     }
+     
+      jQuery("#go").button();
+    });
+</r:script>

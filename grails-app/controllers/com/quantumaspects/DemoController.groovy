@@ -5,8 +5,7 @@ class DemoController {
     def parseService
     
     def index(){
-        def zapp = Zapper.findByEmail("zapp@zapapp.com")
-        [ zappCards : zapp.cards ]
+    
     }
     
     def live(){
@@ -14,7 +13,7 @@ class DemoController {
         def zapp = Zapper.findByEmail("zapp@zapapp.com")
         def zappCard = ZapCard.findByOwner(zapp)
         parseService.exchangeCards(data.demoZapper, data.card, zapp)
-        return [ card : zappCard, zappCards : zapp.cards ]
+        render(template:'/demo/card', model:[ card : zappCard])
     }
     
     private def populate(String email, String name, String phoneNumber){
