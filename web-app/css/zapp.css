@@ -1,0 +1,35 @@
+/* 
+    Document   : zapp
+    Created on : Mar 14, 2012, 7:19:26 PM
+    Author     : Nicholas Vaidyanathan
+    Description:
+        Stylesheets to align Sam's theme with zapp app'
+*/
+
+#container {
+    margin: 0 auto;
+}
+
+#container.twoColumn div {
+    width: 50%;
+}
+
+#phoneContainer{
+    float: left;
+    
+}
+
+
+#blurb { 
+    float: right;
+    margin-top: 15%;
+}
+
+#try a {
+    background-color: #3CBAE3;
+    text-decoration: none;
+    color: white;
+    width:35%;
+}
+
+
