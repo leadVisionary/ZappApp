@@ -18,8 +18,12 @@ html, body {
     width: 50%;
 }
 
-#phoneContainer{
+.leftColumn{
     float: left;
+}
+
+.rightColumn{
+    float: right;
 }
 
 #phoneContainer img{
@@ -28,7 +32,6 @@ html, body {
 }
 
 #blurb { 
-    float: right;
     margin-top: 15%;
 }
 
@@ -42,4 +45,37 @@ html, body {
     color: white;
 }
 
+h1 {
+   color: #3CBAE3;
+   font-weight: bold;
+   font-size: 200%;
+   margin: 0.8em 0 0.3em 0; 
+}
 
+/* Great artists steal: http://nicolasgallagher.com/pure-css-speech-bubbles/demo/*/
+.example-obtuse {
+position: relative;
+padding: 15px 30px;
+margin: 0;
+color: black;
+background: #F3961C;
+background: -webkit-gradient(linear, 0 0, 0 100%, from(#F9D835), to(#F3961C));
+background: -moz-linear-gradient(#F9D835, #F3961C);
+background: -o-linear-gradient(#F9D835, #F3961C);
+background: linear-gradient(#F9D835, #F3961C);
+border-radius: 25px / 50px;
+-moz-border-radius: 25px / 50px;
+border-radius: 25px / 50px;
+}
+
+.example-obtuse::before {
+content: "";
+position: absolute;
+bottom: -30px;
+right: 80px;
+border-width: 0 0 30px 50px;
+border-style: solid;
+border-color: transparent #F3961C;
+display: block;
+width: 0;
+}

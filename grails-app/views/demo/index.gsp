@@ -8,23 +8,17 @@
     </title>
   </head>
   <body>
-    <p>
-      <g:message code="live.demo.instructions" />
-    </p>
-    <g:form action="broadcast">
-      <label for="name">
-        <g:message code="live.demo.name.label" default="Name" />
-      </label>
-      <g:textField name="name" />
-      <label for="email">
-        <g:message code="live.demo.email.label" default="Email address" />
-      </label>
-      <input type="email" name="email" />
-      <label for="phoneNumber">
-        <g:message code="live.demo.phoneNumber.label" default="Phone Number" />
-      </label>
-      <input type="tel" name="phoneNumber" />
-      <g:submitButton name="Go" value="Exchange Cards!" />
-    </g:form>
-  </body>
+    <header class="leftColumn">
+      <blockquote class="example-obtuse">
+            <p><g:message code="live.demo.instructions" /></p>
+      </blockquote>  
+      <img src="${resource(dir:'images', file:'Zapp.png')}"
+               alt="Say hello to Zapp Appanigan!"/>
+    </header>
+    <div class="rightColumn">
+      <g:render template="/demo/input" />
+    </div>
+    <g:render template="/demo/cardList" model="['name':'Zapp', 'cards':zappCards]" />
+    <div id="userWallet" />
+</body>
 </html>
