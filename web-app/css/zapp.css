@@ -6,6 +6,10 @@
         Stylesheets to align Sam's theme with zapp app'
 */
 
+html, body {
+    background: url(../images/bg.jpg);
+}
+
 #container {
     margin: 0 auto;
 }
@@ -16,20 +20,26 @@
 
 #phoneContainer{
     float: left;
-    
 }
 
+#phoneContainer img{
+    margin-left: 10%;
+    margin-top: 25%;
+}
 
 #blurb { 
     float: right;
     margin-top: 15%;
 }
 
-#try a {
+#try {
     background-color: #3CBAE3;
+    font-size: 1275%;
+}
+
+#try a{
     text-decoration: none;
     color: white;
-    width:35%;
 }
 
 
