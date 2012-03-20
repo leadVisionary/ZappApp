@@ -9,13 +9,13 @@
     <r:require modules="jquery-ui" />
   </head>
   <body>
-    <header class="leftColumn">
+    <div class="leftColumn">
       <blockquote class="example-obtuse">
             <p><g:message code="live.demo.instructions" /></p>
       </blockquote>  
       <img src="${resource(dir:'images', file:'Zapp.png')}"
                alt="Say hello to Zapp Appanigan!"/>
-    </header>
+    </div>
     <div class="rightColumn">
       <g:render template="/demo/input" />
     </div>

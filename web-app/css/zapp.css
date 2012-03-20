@@ -52,6 +52,11 @@ h1 {
    margin: 0.8em 0 0.3em 0; 
 }
 
+form {
+    font-family: Verdana, Arial, sans-serif;
+    font-size:200%;
+}
+
 /* Great artists steal: http://nicolasgallagher.com/pure-css-speech-bubbles/demo/*/
 .example-obtuse {
 position: relative;
