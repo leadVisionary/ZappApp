@@ -33,6 +33,9 @@ class DemoController {
         parseService.collectRemoteData()
         def demoZapper = Zapper.findByEmail(email) ?:
                          parseService.createUser(email)
+        if(!demoZapper){
+            throw new Exception("it didn't happen! ${demoZapper}")
+        }
         def card = ZapCard.findByPhoneNumber(phoneNumber) ?:
                          parseService.createCard(demoZapper,name, phoneNumber)
         return [ card : card , demoZapper : demoZapper ]

@@ -15,7 +15,7 @@ class ZapCardService {
                 }
             }
             catch(Exception e){
-                log.error "got problem ${e.message}"
+                log.error "got problem ${e.message} it was ${it}"
             }
         }
     }
