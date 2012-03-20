@@ -11,31 +11,34 @@ import org.junit.*
 @TestFor(ZapCardService)
 @Mock([ZapCard, Zapper])
 class ZapCardServiceTests {
-
+    Zapper collaborator = new Zapper(email:"test@you.com", username:"fuck", objectId:"112233") 
+    
     void testCreateCardsFromCollection() {
-        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save() 
+        collaborator.save()
         def collection = [
-                            [name: "test1", phoneNumber: "555-333-2222", cardOwner:[objectId: zapper.objectId], objectId:"loory"],
-                            [name: "test2", phoneNumber: "111-444-1234", cardOwner:[objectId: zapper.objectId], objectId:"foory"],
+                            [cardName: "test1", phoneNumber: "555-333-2222", cardOwner:[objectId: collaborator.objectId], objectId:"loory"],
+                            [cardName: "test2", phoneNumber: "111-444-1234", cardOwner:[objectId: collaborator.objectId], objectId:"foory"],
                          ]
         service.createCardsFromCollection(collection)
         assert ZapCard.list().size() == 2
     }
+    
     
     void testCreateCardFromInvalidInput(){
         def result = service.createCard(null, "blah", "blah")
         assert !result
     }
     
-    void testCreateUserFromValidInput(){
-        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save() 
-        def result = service.createCard(zapper, "blahma", "(480)593-2428" )
+    
+    void testCreateCardFromValidInputWithoutParseId(){
+        collaborator.save()
+        def result = service.createCard(collaborator, "blahma", "(480)593-2428" )
         assert result.validate()
     }
     
     void testCreateUserValidInputAndParseId(){
-        def zapper = new Zapper(email:"test@you.com", objectId:"112233").save()
-        def result = service.createCard(zapper, "blahma", "(480)593-2428", "testy")
+        collaborator.save()
+        def result = service.createCard(collaborator, "blahma", "(480)593-2428", "testy")
         assert result.validate()
     }
 }

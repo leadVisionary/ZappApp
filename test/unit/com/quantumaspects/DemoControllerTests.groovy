@@ -10,7 +10,9 @@ import org.junit.*
 
 class DemoControllerTests {
     void setUp(){
-        def zapp = new Zapper(email:"zapp@zapapp.com",objectId:"boobah").save(flush:true)
+        def zapp = new Zapper(email:"zapp@zapapp.com", 
+                              username:"9999999999", 
+                              objectId:"boobah").save(flush:true)
         def card = new ZapCard( owner: zapp,
                                name:"Zapp Appiganigan", 
                                phoneNumber:"999-999-9999",
@@ -18,7 +20,7 @@ class DemoControllerTests {
         println "zapp ${zapp} card ${card}"
     }
     
-    private Zapper createZapper(){ new Zapper(email:"moo@you.com", objectId:"112233") }
+    private Zapper createZapper(){ new Zapper(email:"moo@you.com", username:"Boogie", objectId:"112233") }
     private ZapCard createCard(Zapper zapper) {
         new ZapCard(
             name:"Visionary Software Solutions",

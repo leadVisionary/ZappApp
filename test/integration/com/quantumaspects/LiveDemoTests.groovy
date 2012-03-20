@@ -21,10 +21,17 @@ class LiveDemoTests {
         controller.params.email = "hoodoo@roo.do"
         controller.params.name = "Mr. Moose"
         controller.params.phoneNumber = "(480)555-3987"
-        def model = controller.live()
-        assert "Zapp Appiganigan" == model.card.name
-        assert "999-999-9999" == model.card.phoneNumber
+        controller.live()
         assert Zapper.list().size() > 0
         assert ZapCard.list().size() > 0
+        assert controller.response.text == """<div>
+  <p>
+    <span>Name</span> - <span>Zapp Appiganigan</span>
+  </p>
+  <p>
+    <span>Phone Number</span> - <span>999-999-9999</span>
+  </p>
+</div>""" 
+        
     }
 }

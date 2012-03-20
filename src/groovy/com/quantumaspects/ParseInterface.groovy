@@ -32,6 +32,9 @@ abstract class ParseInterface implements ParseAPI {
         return resp?.objectId ?: ""    
     }
     
+    public void pushNotification(String message){
+        pushNotification("", 50000, "", [data:message])
+    }
     public void pushNotification(String channel = "", 
                                  Integer expiry = Integer.MAX_VALUE, 
                                  String type = "",
@@ -40,10 +43,9 @@ abstract class ParseInterface implements ParseAPI {
         def notificationBody = [
                                 "channel" : channel, 
                                 "expiry" : expiry, 
-                                "type" : type, 
                                 "data" : data
                                ]
-        sendToParse("push", ContentType.JSON, notificationBody)
+        sendToParse("push", ContentType.JSON, toJSON(notificationBody))
     }
     
     private def sendToParse(String url, ContentType contentType=ContentType.JSON, def envelope={}){
@@ -52,8 +54,11 @@ abstract class ParseInterface implements ParseAPI {
         try{
             response = client.post(path:url, body:envelope, requestContentType:contentType)
         }
-        catch(ex){
-            println "Post failed! Response was ${ex.response.status} ${ex.response.data}"
+        catch(HttpResponseException ex){
+            log.error "Response was ${ex.response.status} ${ex.response.data}"
+        }
+        catch(Exception e){
+            log.error "Post failed! Tried to hit ${url}%n with ${envelope}%n problem was ${e.message}%n"
         }
         return response?.data
     }

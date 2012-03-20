@@ -10,27 +10,27 @@ import org.junit.*
 @Mock(Zapper)
 class ZapperServiceTests {
 
-    void testCreateCardsFromCollection() {
+    void testCreateUsersFromCollection() {
         def collection = [
-                            [ email : "moo@you.com", objectId:"loory" ],
-                            [ email : "roo@you.net", objectId:"foory" ],
+                            [ email : "moo@you.com", username:"fox", objectId:"loory" ],
+                            [ email : "roo@you.net", username:"rox", objectId:"foory" ],
                          ]
         service.createUsersFromCollection(collection)
         assert Zapper.list().size() == 2
     }
     
     void testCreateUserFromInvalidEmail(){
-        def result = service.createUser("blah")
+        def result = service.createUser("blah", "blah")
         assert !result
     }
     
     void testCreateUserFromValidEmail(){
-        def result = service.createUser("blah@roo.com")
+        def result = service.createUser("blah@roo.com", "blah")
         assert result.validate()
     }
     
     void testCreateUserFromEmailAndParseId(){
-        def result = service.createUser("blah@roo.com", "foogah")
+        def result = service.createUser("blah@roo.com", "blah", "foogah")
         assert result.validate()
     }
 }

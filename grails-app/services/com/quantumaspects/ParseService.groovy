@@ -37,7 +37,8 @@ class ParseService extends ParseInterface implements ZapAPI  {
                              cardRecipient : createParseUserLink(recipient.objectId),
                              zapCard : createParseObjectLink(card.objectId, "zapCards") ]
         def result = this.createObject("exchangedCards", exchangeData)
-        this.pushNotification( recipient.email, exchangeData )
+        def message = "${sender.username} sent ${recipient.username} a ZapCard ${card.name}"
+        this.pushNotification( message )
     }
     
     void collectRemoteData() {
