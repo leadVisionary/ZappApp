@@ -13,7 +13,7 @@ class DemoController {
         def zapp = Zapper.findByEmail("zapp@zapapp.com")
         def zappCard = ZapCard.findByOwner(zapp)
         parseService.exchangeCards(data.demoZapper, data.card, zapp)
-        render(template:'/demo/card', model:[ card : zappCard])
+        render template:'card', model: [ card : zappCard ]
     }
     
     private def populate(String email, String name, String phoneNumber){

@@ -7,4 +7,7 @@ class Zapper extends ParseEntity {
     static constraints = {
         email blank : false, unique : true, email : true
     }
+    
+    @Override
+    public String toString() { "${email} - ${cards}" }
 }
