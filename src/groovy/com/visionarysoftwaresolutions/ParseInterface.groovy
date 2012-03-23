@@ -4,18 +4,9 @@ import net.sf.json.JSONArray
 import groovyx.net.http.*
 
 abstract class ParseInterface implements ParseAPI {
-    public Collection retrieveAll(String parseEntity){
+    public static Collection retrieveAll(String parseEntity){
         def url = (parseEntity == "User")? "users" : "classes/${parseEntity}"
-        def all 
-        try{
-            all = ParseConnector.retrieveFromParse(url)
-        }
-        catch(HttpResponseException ex){
-            log.error "Response was ${ex.response.status} ${ex.response.data}"
-        }
-        catch(Exception e){
-            log.error "retrieving all failed! Tried to hit ${url}%n problem was ${e.message}%n"
-        }
+        def all = ParseConnector.retrieveFromParse(url)
         JSONArray.toCollection(all?.results)
     }
     

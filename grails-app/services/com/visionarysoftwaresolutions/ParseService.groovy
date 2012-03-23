@@ -37,27 +37,12 @@ class ParseService extends ParseInterface implements ZapAPI  {
         def usr = ParseConnector.createParseUserLink(sender.objectId)
         def recp = ParseConnector.createParseUserLink(recipient.objectId)
         def trade  = ParseConnector.createParseObjectLink(card.objectId, "zapCards")
-        log.debug "got ${usr} ${recp} ${trade}"
+        log.error "got ${usr} ${recp} ${trade}"
         def exchangeData = [ user : usr, 
                              cardRecipient : recp,
                              zapCard : trade ]
         def result = this.createObject("exchangedCards", exchangeData)
         def message = "${sender.username} sent ${recipient.username} a ZapCard ${card.name}"
         this.pushNotification( message )
-    }
-    
-    void collectRemoteData() {
-        retrieveUsersFromParse()
-        retrieveCardsFromParse()
-    }
-    
-    def retrieveUsersFromParse(){
-        def result = this.retrieveAll("User")
-        zapperService.createUsersFromCollection(result)
-    }
-    
-    def retrieveCardsFromParse() {
-        def result = this.retrieveAll("zapCards")
-        zapCardService.createCardsFromCollection(result)
     }
 }

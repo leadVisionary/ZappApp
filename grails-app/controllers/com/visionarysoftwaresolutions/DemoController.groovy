@@ -3,6 +3,7 @@ import grails.converters.*
 
 class DemoController {
     def parseService
+    def synchronizerService
     
     def index(){
     
@@ -35,7 +36,7 @@ class DemoController {
     }
     
     private def populateFromRemote(String email, String name, String phoneNumber){
-        parseService.collectRemoteData()
+        synchronizerService.collectRemoteData()
         def demoZapper = Zapper.findByEmail(email) ?:
                          parseService.createUser(email)
         if(!demoZapper){

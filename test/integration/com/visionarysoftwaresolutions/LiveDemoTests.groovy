@@ -4,7 +4,9 @@ import static org.junit.Assert.*
 import org.junit.*
 
 class LiveDemoTests {
-
+    def parseService
+    
+    
     @Before
     void setUp() {
         // Setup logic here
@@ -15,6 +17,26 @@ class LiveDemoTests {
         // Tear down logic here
     }
 
+    @Test
+    void testCreateAParseUser(){
+        
+    }
+    
+    @Test
+    void testCreateAZapCard(){
+        
+    }
+    
+    @Test
+    void testCreateAnExchangedCard(){
+        
+    }
+    
+    @Test
+    void testCreateANotification(){
+        
+    }
+    
     @Test
     void testLiveDemo(){
         def controller = new DemoController()
