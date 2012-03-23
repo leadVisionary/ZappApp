@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 
 import static org.junit.Assert.*
 import org.junit.*

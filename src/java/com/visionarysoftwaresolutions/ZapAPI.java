@@ -1,4 +1,4 @@
-package com.quantumaspects;
+package com.visionarysoftwaresolutions;
 
 public interface ZapAPI {
     Zapper createUser(String email);

@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 import grails.converters.*
 
 class DemoController {
@@ -12,7 +12,12 @@ class DemoController {
         def data = populate(params.email, params.name, params.phoneNumber)
         def zapp = Zapper.findByEmail("zapp@zapapp.com")
         def zappCard = ZapCard.findByOwner(zapp)
-        parseService.exchangeCards(data.demoZapper, data.card, zapp)
+        try{
+            parseService.exchangeCards(data.demoZapper, data.card, zapp)
+        }
+        catch(ex){
+            flash.message = "Card exchange failed because ${ex.message}"
+        }
         render template:'card', model: [ card : zappCard ]
     }
     
@@ -34,10 +39,13 @@ class DemoController {
         def demoZapper = Zapper.findByEmail(email) ?:
                          parseService.createUser(email)
         if(!demoZapper){
-            throw new Exception("it didn't happen! ${demoZapper}")
+            throw new Exception("Couldn't create user ! ${demoZapper}")
         }
-        def card = ZapCard.findByPhoneNumber(phoneNumber) ?:
-                         parseService.createCard(demoZapper,name, phoneNumber)
+        def card = ZapCard.findByPhoneNumber(phoneNumber) ?: 
+                   parseService.createCard(demoZapper, name, phoneNumber)
+        if(!card){
+            throw new Exception("Couldn't create card ! ${card}")
+        }                 
         return [ card : card , demoZapper : demoZapper ]
     }
 }

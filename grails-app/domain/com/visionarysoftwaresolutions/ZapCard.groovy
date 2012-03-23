@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 
 class ZapCard extends ParseEntity {
     String name

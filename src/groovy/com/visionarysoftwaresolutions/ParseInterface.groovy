@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 
 import groovyx.net.http.*
 import static groovyx.net.http.ContentType.*
@@ -15,13 +15,17 @@ abstract class ParseInterface implements ParseAPI {
     
     public String createUser(String email, String password){
         def jsoned = toJSON([ 'username' : email, "email": email, 'password' : password ])
+        log.error "sending ${jsoned}"
         def resp = sendToParse('users', ContentType.JSON, jsoned)
+        log.error "got back ${resp}"
         return resp?.objectId ?: ""
     }
     
     public String createObject(String parseEntity, Map args){
         def jsoned = toJSON(args)
+        log.error "sending ${jsoned}"
         def resp = sendToParse("classes/${parseEntity}", ContentType.JSON, jsoned) 
+        log.error "got back ${resp}"
         return resp?.objectId ?: ""
     }
     

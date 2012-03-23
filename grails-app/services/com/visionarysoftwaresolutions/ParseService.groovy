@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 
 class ParseService extends ParseInterface implements ZapAPI  {
     def zapperService
@@ -34,9 +34,13 @@ class ParseService extends ParseInterface implements ZapAPI  {
     }
     
     public void exchangeCards(Zapper sender, ZapCard card, Zapper recipient){
-        def exchangeData = [ user : createParseUserLink(sender.objectId), 
-                             cardRecipient : createParseUserLink(recipient.objectId),
-                             zapCard : createParseObjectLink(card.objectId, "zapCards") ]
+        def usr = createParseUserLink(sender.objectId)
+        def recp = createParseUserLink(recipient.objectId)
+        def trade  = createParseObjectLink(card.objectId, "zapCards")
+        log.debug "got ${usr} ${recp} ${trade}"
+        def exchangeData = [ user : usr, 
+                             cardRecipient : recp,
+                             zapCard : trade ]
         def result = this.createObject("exchangedCards", exchangeData)
         def message = "${sender.username} sent ${recipient.username} a ZapCard ${card.name}"
         this.pushNotification( message )

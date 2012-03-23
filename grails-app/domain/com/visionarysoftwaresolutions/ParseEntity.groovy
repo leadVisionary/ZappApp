@@ -1,4 +1,4 @@
-package com.quantumaspects
+package com.visionarysoftwaresolutions
 
 abstract class ParseEntity {
     String objectId
