@@ -18,26 +18,6 @@ class LiveDemoTests {
     }
 
     @Test
-    void testCreateAParseUser(){
-        
-    }
-    
-    @Test
-    void testCreateAZapCard(){
-        
-    }
-    
-    @Test
-    void testCreateAnExchangedCard(){
-        
-    }
-    
-    @Test
-    void testCreateANotification(){
-        
-    }
-    
-    @Test
     void testLiveDemo(){
         def controller = new DemoController()
         controller.params.email = "hoodoo@roo.do"
