@@ -25,18 +25,18 @@ class ParseService extends ParseInterface implements ZapAPI  {
     }
     
     private String createCardInParse(Zapper owner, String name, String phoneNumber){
-        def cardData = toJSON([ 
+        def cardData = [ 
                          name: name,
                          phoneNumber: phoneNumber, 
-                         cardOwner :  createParseUserLink(owner?.objectId)
-                       ])
+                         cardOwner :  ParseConnector.createParseUserLink(owner?.objectId)
+                       ]
         return this.createObject("zapCards", cardData)
     }
     
     public void exchangeCards(Zapper sender, ZapCard card, Zapper recipient){
-        def usr = createParseUserLink(sender.objectId)
-        def recp = createParseUserLink(recipient.objectId)
-        def trade  = createParseObjectLink(card.objectId, "zapCards")
+        def usr = ParseConnector.createParseUserLink(sender.objectId)
+        def recp = ParseConnector.createParseUserLink(recipient.objectId)
+        def trade  = ParseConnector.createParseObjectLink(card.objectId, "zapCards")
         log.debug "got ${usr} ${recp} ${trade}"
         def exchangeData = [ user : usr, 
                              cardRecipient : recp,
