@@ -11,7 +11,17 @@ import org.junit.*
 @TestFor(SynchronizerService)
 class SynchronizerServiceTests {
 
-    void testSomething() {
-        fail "Implement me"
+    void testRemoteDataCollected() {
+        def control = mockFor(ZapperService)
+        control.demand.createUsersFromCollection{ collection ->
+            
+        }
+        service.zapperService = control.createMock()
+        control = mockFor(ZapCardService)
+        control.demand.createCardsFromCollection{ collection ->
+            
+        }
+        service.zapCardService = control.createMock()
+        service.collectRemoteData()
     }
 }

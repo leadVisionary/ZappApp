@@ -30,15 +30,6 @@ class DemoControllerTests {
         )
     }
     
-    private void setupMock(def configure){
-        def control = mockFor(ParseService)
-        configure(control)
-        control.demand.exchangeCards { Zapper o, String n, String pn ->
-            
-        }
-        controller.parseService = control.createMock()
-    }
-    
     private void testLive(Zapper zapper, ZapCard newCard){
         controller.params.email = zapper.email
         controller.params.name = newCard.name
@@ -55,7 +46,15 @@ class DemoControllerTests {
     }
     
     void testLiveWhenCardAlreadyLocal(){
-        setupMock({})
+        def control = mockFor(SynchronizerService)
+        control.demand.collectRemoteData { -> }
+        controller.synchronizerService = control.createMock()
+        control = mockFor(ParseService)
+        control.demand.exchangeCards { Zapper o, String n, String pn ->
+            
+        }
+        controller.parseService = control.createMock()
+        
         def zapper = createZapper()
         zapper.save(flush:true)
         def card = createCard(zapper)
@@ -67,61 +66,75 @@ class DemoControllerTests {
     
     void testLiveWhenCardAndUserExistInParse(){
         def zap = createZapper()
-        def configure ={ it ->
-            it.demand.collectRemoteData { ->
+        def control = mockFor(SynchronizerService)
+        control.demand.collectRemoteData { ->
                 def pap = createZapper()
                 pap.save(flush:true)
                 def card = createCard(pap)
                 card.save(flush:true)
-            }
         }
-        setupMock(configure)
+        controller.synchronizerService = control.createMock()
+        control = mockFor(ParseService)
+        control.demand.exchangeCards { Zapper o, String n, String pn ->
+            
+        }
+        controller.parseService = control.createMock()
         testLive(zap, createCard(zap))
     }
     
     void testLiveWhenCardInParse(){
         def zap = createZapper()
-        def configure ={ it ->
-             
-            it.demand.collectRemoteData{ ->
+        def control = mockFor(SynchronizerService)
+        control.demand.collectRemoteData { ->
                 def card = createCard(zap)
                 card.save(flush:true)
-            }
-            it.demand.createUser{ String email ->
-                zap.save(flush:true)
-            }
         }
-        setupMock(configure)
+        controller.synchronizerService = control.createMock()
+        control = mockFor(ParseService)
+        control.demand.createUser{ String email ->
+                zap.save(flush:true)
+        }
+        control.demand.exchangeCards { Zapper o, String n, String pn ->
+            
+        }
+        controller.parseService = control.createMock()
         testLive(zap, createCard(zap))
     }
     
     void testLiveWhenUserInParse(){
         def zap = createZapper()
-        def configure ={ it ->
-            it.demand.collectRemoteData{ ->
-                zap.save(flush:true) 
-            }
-            it.demand.createCard{ o, p,u ->
-                createCard(zap)
-            }
+        def control = mockFor(SynchronizerService)
+        control.demand.collectRemoteData { ->
+                zap.save(flush:true)
         }
-        setupMock(configure)
+        controller.synchronizerService = control.createMock()
+        control = mockFor(ParseService)
+        control.demand.createCard{ o, p,u ->
+                createCard(zap)
+        }
+        control.demand.exchangeCards { Zapper o, String n, String pn ->
+            
+        }
+        controller.parseService = control.createMock()
         testLive(zap, createCard(zap))
     }
     
     void testLiveWhenNothingInParse(){
         def zap = createZapper()
-        def configure ={ it ->
-            
-            it.demand.collectRemoteData{ -> }
-            it.demand.createUser{ String email ->
+        def control = mockFor(SynchronizerService)
+        control.demand.collectRemoteData { -> }
+        controller.synchronizerService = control.createMock()
+        control = mockFor(ParseService)
+        control.demand.createUser{ String email ->
                 zap
             }
-            it.demand.createCard{ o, p,u ->
+        control.demand.createCard{ o, p,u ->
                 createCard(zap)
             }
+        control.demand.exchangeCards { Zapper o, String n, String pn ->
+            
         }
-        setupMock(configure)
+        controller.parseService = control.createMock()
         testLive(zap, createCard(zap))
     }
 }
