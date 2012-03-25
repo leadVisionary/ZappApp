@@ -20,8 +20,7 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-        mavenCentral()
-
+        
         // uncomment these to enable remote dependency resolution from public Maven repositories
         mavenCentral()
         //mavenLocal()
@@ -37,6 +36,7 @@ grails.project.dependency.resolution = {
         compile ("org.codehaus.groovy.modules.http-builder:http-builder:0.5.2") {
             excludes 'groovy', 'xml-apis'
         }
+        runtime 'postgresql:postgresql:8.4-702.jdbc3'
     }
 
     plugins {
