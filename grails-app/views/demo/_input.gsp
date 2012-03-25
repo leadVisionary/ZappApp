@@ -13,16 +13,11 @@
   </label>
   <g:submitToRemote update="zapCard" 
                     url="[action:'live', controller:'demo']"
-                    value="Exchange Cards!"
-                    onComplete="showZap()"/>
+                    value="Exchange Cards!" />
 </g:form>
 <div id="zapCard" />
 <r:script>
     jQuery(document).ready(function(){ 
-      showZap = function(){
-       jQuery("#zapCard").lightBox();
-     }
-     
       jQuery("#go").button();
     });
 </r:script>

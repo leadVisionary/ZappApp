@@ -84,3 +84,152 @@ border-color: transparent #F3961C;
 display: block;
 width: 0;
 }
+
+/* stolen again  http://csswizardry.com/2011/02/mobile-business-card/*/
+
+#zappCard{
+  position:relative;
+  margin:0 auto;
+  padding:20px 20px 0 20px;
+  border:10px solid #f0f0f0;
+  background:#fff;
+  width:200%;
+
+  -moz-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  -o-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  box-shadow:0 0 10px rgba(0,0,0,0.25);
+}
+#zappCard:before,
+#zappCard:after{
+  content:" ";
+  display:block;
+  border:10px solid #f0f0f0;
+  background:#fff;
+  z-index:-1;
+  position:absolute;
+  top:-10px;
+  right:-10px;
+  bottom:-10px;
+  left:-10px;
+
+  -moz-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  -o-box-shadow:0 0 10px rgba(0,0,0,0.25);
+  box-shadow:0 0 10px rgba(0,0,0,0.25);
+  -moz-transform:rotate(1deg);
+  -webkit-transform:rotate(1deg);
+  -o-transform:rotate(1deg);
+  transform:rotate(1deg);
+}
+#page:after{
+  z-index:-2;
+  -moz-transform:rotate(-1.5deg);
+  -webkit-transform:rotate(-1.5deg);
+  -o-transform:rotate(-1.5deg);
+  transform:rotate(-1.5deg);
+}
+
+@media (max-width: 480px) and (orientation: portrait){
+
+#contact{
+  position:absolute;
+  left:-9999px;
+}
+
+}
+@media (max-width: 480px) and (orientation: landscape){
+
+#about{
+  position:absolute;
+  left:-9999px;
+}
+
+}
+
+#mask,
+#instructions{
+  display:block;
+  -webkit-animation-duration:3s;
+  -webkit-animation-iteration-count:1;
+  -webkit-animation-timing-function:linear;
+}
+#mask{
+  position:absolute;
+  left:-9999px;
+  background:rgba(0,0,0,0.75);
+  z-index:2;
+  -webkit-animation-name:mask;
+}
+@-webkit-keyframes mask{
+0%{
+  opacity:0;
+}
+10%{
+  opacity:1;
+  top:0;
+  right:0;
+  bottom:0;
+}
+90%{
+  opacity:1;
+  top:0;
+  right:0;
+  bottom:0;
+}
+99%{
+  opacity:0;
+  top:0;
+  right:0;
+  bottom:0;
+}
+100%{
+  opacity:0;
+}
+}
+#instructions{
+  font-family:Calibri, sans-serif; /* Using a non-Typekit face to try and alleviate the delay in text-display */
+  width:200px;
+  position:absolute;
+  top:-9999px;
+  left:50%;
+  background:rgba(0,0,0,0.75);
+  z-index:3;
+  padding:10px;
+  background:#fef8c4;
+  border:1px solid #d8d566;
+  margin:-12px 0 0 -100px;
+  font-weight:bold;
+  text-align:center;
+
+  -moz-box-shadow:0 0 10px rgba(0,0,0,0.75),0 1px #fff inset;
+  -webkit-box-shadow:0 0 10px rgba(0,0,0,0.75),0 1px #fff inset;
+  -o-box-shadow:0 0 10px rgba(0,0,0,0.75),0 1px #fff inset;
+  box-shadow:0 0 10px rgba(0,0,0,0.75),0 1px #fff inset;
+  -webkit-animation-name:message;
+}
+@-webkit-keyframes message{
+0%{
+  opacity:0;
+}
+10%{
+  opacity:1;
+  top:50%;
+  left:50%;
+}
+90%{
+  opacity:1;
+  top:50%;
+  left:50%;
+}
+99%{
+  opacity:0;
+  top:50%;
+  left:50%;
+}
+100%{
+  opacity:0;
+}
+}
+
+}

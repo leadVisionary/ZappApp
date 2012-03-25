@@ -10,10 +10,10 @@ class DemoController {
     }
     
     def live(){
-        def data = populate(params.email, params.name, params.phoneNumber)
         def zapp = Zapper.findByEmail("zapp@zapapp.com")
         def zappCard = ZapCard.findByOwner(zapp)
         try{
+            def data = populate(params.email, params.name, params.phoneNumber)
             parseService.exchangeCards(data.demoZapper, data.card, zapp)
         }
         catch(ex){
