@@ -37,7 +37,6 @@ class ParseService extends ParseInterface implements ZapAPI  {
         def usr = ParseConnector.createParseUserLink(sender.objectId)
         def recp = ParseConnector.createParseUserLink(recipient.objectId)
         def trade  = ParseConnector.createParseObjectLink(card.objectId, "zapCards")
-        log.error "got ${usr} ${recp} ${trade}"
         def exchangeData = [ user : usr, 
                              cardRecipient : recp,
                              zapCard : trade ]
