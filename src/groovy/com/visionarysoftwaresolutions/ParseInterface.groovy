@@ -29,7 +29,7 @@ abstract class ParseInterface implements ParseAPI {
     
     public String createObject(String parseEntity, Map args){
         def jsoned = ParseConnector.toJSON(args)
-        log.error "sending ${jsoned}"
+        log.error "sending ${jsoned} to ${parseEntity}"
         def response
         try{
             response = ParseConnector.sendToParse("classes/${parseEntity}", ContentType.JSON, jsoned) 
@@ -59,7 +59,9 @@ abstract class ParseInterface implements ParseAPI {
                                ]
         def response
         try{
-            response = ParseConnector.sendToParse("push", ContentType.JSON, toJSON(notificationBody))
+            response = ParseConnector.sendToParse("push", 
+                                                   ContentType.JSON, 
+                                                   ParseConnector.toJSON(notificationBody))
         }
         catch(HttpResponseException ex){
             log.error "Response was ${ex.response.status} ${ex.response.data}"

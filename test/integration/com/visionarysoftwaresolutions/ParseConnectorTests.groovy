@@ -41,9 +41,7 @@ class ParseConnectorTests {
     
     @Test
     void testToJSON(){
-        def poodle = new Expando()
-        poodle.dog = new Expando()
-        poodle.dog.mindy = ["isCute" : true]
+        def poodle = ["dog" : ["mindy": ["isCute" : true] ] ]
         def result = ParseConnector.toJSON(poodle)
         assert result == '{ "dog" : { "mindy" : [ "isCute" : true ] } }'
     }
